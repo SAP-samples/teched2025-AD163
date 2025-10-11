@@ -1,0 +1,391 @@
+{
+    "$version": "2.0",
+    "meta": {
+        "specification": {
+            "id": "ABAPCSN",
+            "version": "1.0.0"
+        }
+    },
+    "definitions": {
+        "CartService": {
+            "@ObjectModel.leadingEntity": {
+                "name": "projectionview.CartProjection"
+            },
+            "@businessservice": true,
+            "@protocol": "odata-v4",
+            "kind": "service"
+        },
+        "CartService.CartProjection": {
+            "kind": "entity",
+            "projection": {
+                "from": {
+                    "ref": [
+                        "projectionview.CartProjection"
+                    ]
+                }
+            }
+        },
+        "CartService.ItemProjection": {
+            "kind": "entity",
+            "projection": {
+                "from": {
+                    "ref": [
+                        "projectionview.ItemProjection"
+                    ]
+                }
+            }
+        },
+        "businessobject": {
+            "@businessobjects": true,
+            "kind": "context"
+        },
+        "businessobject.Cart": {
+            "kind": "entity",
+            "elements": {
+                "Currency": {
+                    "type": "abap.cuky",
+                    "@Consumption.valueHelpDefinition": [
+                        {
+                            "entity": {
+                                "element": "Currency",
+                                "name": "I_CurrencyStdVH"
+                            }
+                        }
+                    ],
+                    "@EndUserText.label": "Currency"
+                },
+                "Notes": {
+                    "type": "abap.char",
+                    "length": 100,
+                    "@EndUserText.label": "Notes"
+                },
+                "OrderID": {
+                    "type": "abap.numc",
+                    "length": 8,
+                    "@EndUserText.label": "OrderID"
+                },
+                "OrderUuid": {
+                    "type": "abap.raw",
+                    "key": true,
+                    "length": 16,
+                    "@EndUserText.label": "OrderUuid",
+                    "@Semantics.Uuid": true
+                },
+                "RequestDeliveryDate": {
+                    "type": "abap.datn",
+                    "@EndUserText.label": "RequestDeliveryDate"
+                },
+                "TotalPrice": {
+                    "type": "abap.curr",
+                    "precision": 11,
+                    "scale": 2,
+                    "@EndUserText.label": "TotalPrice",
+                    "@Semantics.amount": {
+                        "currencyCode": "Currency"
+                    }
+                },
+                "_Items": {
+                    "type": "cds.Composition",
+                    "cardinality": {
+                        "max": "*"
+                    },
+                    "target": "businessobject.Item",
+                    "toCompositionChild": true
+                }
+            },
+            "@EndUserText.label": "Cart",
+            "rootEntity": true
+        },
+        "businessobject.Item": {
+            "kind": "entity",
+            "elements": {
+                "Currency": {
+                    "type": "abap.cuky",
+                    "@Consumption.valueHelpDefinition": [
+                        {
+                            "entity": {
+                                "element": "Currency",
+                                "name": "I_CurrencyStdVH"
+                            }
+                        }
+                    ],
+                    "@EndUserText.label": "Currency"
+                },
+                "ItemID": {
+                    "type": "abap.numc",
+                    "length": 8,
+                    "@EndUserText.label": "ItemID"
+                },
+                "ItemPrice": {
+                    "type": "abap.curr",
+                    "precision": 11,
+                    "scale": 2,
+                    "@EndUserText.label": "ItemPrice",
+                    "@Semantics.amount": {
+                        "currencyCode": "Currency"
+                    }
+                },
+                "ItemUuid": {
+                    "type": "abap.raw",
+                    "key": true,
+                    "length": 16,
+                    "@EndUserText.label": "ItemUuid",
+                    "@Semantics.Uuid": true
+                },
+                "ItemUnitPrice": {
+                    "type": "abap.curr",
+                    "precision": 11,
+                    "scale": 2,
+                    "@EndUserText.label": "ItemUnitPrice",
+                    "@Semantics.amount": {
+                        "currencyCode": "Currency"
+                    }
+                },
+                "OrderedItem": {
+                    "type": "abap.char",
+                    "length": 40,
+                    "@EndUserText.label": "OrderedItem"
+                },
+                "ParentUuid": {
+                    "type": "abap.raw",
+                    "length": 16,
+                    "@EndUserText.label": "ParentUuid"
+                },
+                "Quantity": {
+                    "type": "abap.numc",
+                    "length": 4,
+                    "@EndUserText.label": "Quantity"
+                },
+                "_Parent": {
+                    "type": "cds.Association",
+                    "target": "businessobject.Cart",
+                    "on": [
+                        {
+                            "ref": [
+                                "_Parent",
+                                "OrderUuid"
+                            ]
+                        },
+                        "=",
+                        {
+                            "ref": [
+                                "ParentUuid"
+                            ]
+                        }
+                    ],
+                    "toParent": true
+                }
+            },
+            "@EndUserText.label": "ShoppingCartItem"
+        },
+        "projectionview": {
+            "@projectionviews": true,
+            "kind": "context"
+        },
+        "projectionview.CartProjection": {
+            "kind": "entity",
+            "projection": {
+                "columns": [
+                    {
+                        "key": true,
+                        "ref": [
+                            "OrderUuid"
+                        ]
+                    },
+                    {
+                        "ref": [
+                            "Currency"
+                        ]
+                    },
+                    {
+                        "ref": [
+                            "Notes"
+                        ]
+                    },
+                    {
+                        "ref": [
+                            "OrderID"
+                        ]
+                    },
+                    {
+                        "ref": [
+                            "RequestDeliveryDate"
+                        ]
+                    },
+                    {
+                        "ref": [
+                            "TotalPrice"
+                        ]
+                    },
+                    {
+                        "cast": {
+                            "target": "projectionview.ItemProjection",
+                            "toCompositionChild": true
+                        },
+                        "ref": [
+                            "_Items"
+                        ]
+                    }
+                ],
+                "from": {
+                    "ref": [
+                        "businessobject.Cart"
+                    ]
+                }
+            },
+            "elements": {
+                "Currency": {
+                    "type": "abap.cuky"
+                },
+                "Notes": {
+                    "type": "abap.char",
+                    "length": 100
+                },
+                "OrderID": {
+                    "type": "abap.numc",
+                    "length": 8
+                },
+                "OrderUuid": {
+                    "type": "abap.raw",
+                    "key": true,
+                    "length": 16
+                },
+                "RequestDeliveryDate": {
+                    "type": "abap.datn"
+                },
+                "TotalPrice": {
+                    "type": "abap.curr",
+                    "precision": 11,
+                    "scale": 2
+                },
+                "_Items": {
+                    "type": "cds.Composition",
+                    "cardinality": {
+                        "max": "*"
+                    },
+                    "target": "projectionview.ItemProjection",
+                    "toCompositionChild": true
+                }
+            },
+            "rootEntity": true,
+            "providerContract": "transactionalQuery"
+        },
+        "projectionview.ItemProjection": {
+            "kind": "entity",
+            "projection": {
+                "columns": [
+                    {
+                        "ref": [
+                            "Currency"
+                        ]
+                    },
+                    {
+                        "ref": [
+                            "ItemID"
+                        ]
+                    },
+                    {
+                        "ref": [
+                            "ItemPrice"
+                        ]
+                    },
+                    {
+                        "key": true,
+                        "ref": [
+                            "ItemUuid"
+                        ]
+                    },
+                    {
+                        "ref": [
+                            "ItemUnitPrice"
+                        ]
+                    },
+                    {
+                        "ref": [
+                            "OrderedItem"
+                        ]
+                    },
+                    {
+                        "ref": [
+                            "ParentUuid"
+                        ]
+                    },
+                    {
+                        "ref": [
+                            "Quantity"
+                        ]
+                    },
+                    {
+                        "cast": {
+                            "target": "projectionview.CartProjection",
+                            "toParent": true
+                        },
+                        "ref": [
+                            "_Parent"
+                        ]
+                    }
+                ],
+                "from": {
+                    "ref": [
+                        "businessobject.Item"
+                    ]
+                }
+            },
+            "elements": {
+                "Currency": {
+                    "type": "abap.cuky"
+                },
+                "ItemID": {
+                    "type": "abap.numc",
+                    "length": 8
+                },
+                "ItemPrice": {
+                    "type": "abap.curr",
+                    "precision": 11,
+                    "scale": 2
+                },
+                "ItemUuid": {
+                    "type": "abap.raw",
+                    "key": true,
+                    "length": 16
+                },
+                "ItemUnitPrice": {
+                    "type": "abap.curr",
+                    "precision": 11,
+                    "scale": 2
+                },
+                "OrderedItem": {
+                    "type": "abap.char",
+                    "length": 40
+                },
+                "ParentUuid": {
+                    "type": "abap.raw",
+                    "length": 16
+                },
+                "Quantity": {
+                    "type": "abap.numc",
+                    "length": 4
+                },
+                "_Parent": {
+                    "type": "cds.Association",
+                    "target": "projectionview.CartProjection",
+                    "on": [
+                        {
+                            "ref": [
+                                "_Parent",
+                                "OrderUuid"
+                            ]
+                        },
+                        "=",
+                        {
+                            "ref": [
+                                "ParentUuid"
+                            ]
+                        }
+                    ],
+                    "toParent": true
+                }
+            }
+        }
+    }
+}
