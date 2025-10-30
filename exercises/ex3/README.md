@@ -15,9 +15,12 @@ For this we have to create and maintain the following objects:
 > In the meantime we have to create and maintain the respective objects manually.   
 
 In addition we will   
-- add determinations and validations to the behavior definition  
-- implement the determinations and validations in the behavior implementation class
+- add determination and a validation to the behavior definition  
+- implement the determination and the validation in the behavior implementation class
 - make some fields read-only since they will be determined by the above mentioned determinations
+
+> For a more complete implementation of your RAP BO you will need to implement several determinations and validations. However due to time-constraints we will only implement one determination and one validations to show the concept. 
+> The implementation of additional ABAP business logic is described in the optional Exercise 5.
 
 ### Exercise Steps
 
@@ -37,13 +40,6 @@ In addition we will
 - [3.14 - Preview and test the enhanced online shop app](#314---preview-and-test-the-enhanced-online-shop-app)
 - [Summary](#summary)
 - [Next exercise](#summary--next-exercise)
-
-
-
-
-
-
-
 - [Summary & Next Exercise](#summary--next-exercise)  
 
 
@@ -51,9 +47,79 @@ In addition we will
 > Don't forget to replace all occurences of the placeholder **`###`** with your suffix or Group ID in the exercise steps below.   
 > You can use the ADT function **Replace All** (**Ctrl+F**) for this purpose. 
 
+
 ## 3.1 - Create ABAP cloud project in ADT
 
 You will now create an ABAP Cloud project in ADT in order to enhance the generated code and to implement some business logic.   
+
+You can do so directly from within Business Application Studio, or you can create the project manually from within ADT.
+
+### 3.1.1 - Create an ABAP Cloud Project from within BAS
+
+<details>
+<summary>Click to expand</summary>
+
+⚠️⚠️⚠️ Section 3.1.1. requires a hotfix from BAS
+⚠️⚠️⚠️
+
+1. Open SAP Build Lobby.  
+   
+   > The URL and the username and the password will be provided to you by the course instructors.   
+   > The URL to the SAP Build Lobby is provided as a shortened URL in a format such as `https://url.sap/abc123`. 
+
+2. Add the shortened URL for the SAP Build Lobby into your browser.
+
+3. Open your **Full Stack ABAP Application** project `ZAD163_###` that you have created in the previous exercise, so that your Full Stack ABAP Application Project is opened in Business Application Studio again.
+
+4. Open the File Explorer ![File Explorer](./images/bas_file_explorer.png) in Business Application Studio on the left hand side menu and select the entry for the Service Binding `Z###UI_CARTSERVICE_O4`.
+
+   ![Start ADT](./images/20_000_select_service_binding_in_bas.png)   
+
+5. Now click on the link called **Open this object in ADT** as shown in the following screen shot:
+   
+   ![Start ADT](./images/20_005_select_service_binding_in_bas.png)   
+   
+6. ADT will be opened and since no ABAP Cloud project has been created yet for this system (this SID) you have to press the button **New** in order to start the creation of a new ABAP Cloud project in ADT.   
+
+   ![Start ADT](./images/20_010_new_empty_project.png) 
+
+7. Select **ABAP Cloud Project** as the project type.   
+
+   ![Start ADT](./images/20_020_new_empty_project.png) 
+
+8. Copy the URL of the SAP BTP ABAP Environment System into the field **ABAP Service Instance URL** and click **Next >**.
+
+   > The URL of the SAP BTP ABAP Environment will be provided to you by the course instructors.
+   > The URL is provided as a shortened URL in a format such as `https://url.sap/abc123`.   
+   > Copy the expanded URL from the browser into the field **ABAP Service Instance URL**.   
+
+   ![Start ADT](./images/20_030_new_empty_project_add_url.png) 
+
+8. Click **Open Logon Page in Browser**.
+
+   ![Start ADT](./images/20_040_new_empty_project_authentication.png) 
+
+9. Now you've been authenticated automatically. Provide your credentials if requested. The credentials are the same you used to logon to the SAP Build Lobby. 
+
+   ![Start ADT](./images/20_070_open_service_binding.png) 
+
+10. You can rename the project such that it includes your group id e.g.**H63_###**. 
+
+    ![Start ADT](./images/20_050_new_empty_project_authentication.png) 
+ 
+11. When being asked, open the associated (ABAP) perspective by clicking **Open Perspective** and check the check box **Remember my decsion**. 
+
+    ![Start ADT](./images/20_060_new_empty_project_authentication.png)
+
+12. This will finally open the Service Binding in ADT  
+
+    ![Start ADT](./images/20_070_open_service_binding.png)
+
+</details>
+
+
+
+### 3.1.2 - Create an ABAP Cloud Project from within ADT
 
 <details>
 <summary>Click to expand</summary>
@@ -62,36 +128,40 @@ You will now create an ABAP Cloud project in ADT in order to enhance the generat
 
    ![Start Eclipse](./images/eclipse.png)    
 
-  1. Select **File** > **New** > **Other** > **ABAP Cloud Project** and click **Next >**.
+2. Select **File** > **New** > **Other** > **ABAP Cloud Project** and click **Next >**.
 
-      ![Create ABAP cloud project](./images/cloud.png)
+   ![Create ABAP cloud project](./images/cloud.png)
 
-  2. Copy the following URL  
-     `https://374ca72c-d243-4496-982b-215f3ff23268.abap.eu10.hana.ondemand.com`  
-     into the field **ABAP Service Instance URL** and click **Next >**.
+3. Copy the URL of the SAP BTP ABAP Environment System into the field **ABAP Service Instance URL** and click **Next >**.
 
-     ![Create ABAP cloud project](./images/00_120_new_abap_cloud_project.png)
+   > The URL of the SAP BTP ABAP Environment will be provided to you by the course instructors.
+   > The URL is provided as a shortened URL in a format such as `https://url.sap/abc123`    
+   > Copy the shortened URL into your browser and copy **the expanded URL** from the browser into the field **ABAP Service Instance URL**.    
 
-  3. Click **Open Logon Page in Browser**.
+   ![Create ABAP cloud project](./images/00_120_new_abap_cloud_project.png)
 
-      ![Create ABAP cloud project](./images/project44.png)
+4. Click **Open Logon Page in Browser**.
 
-  4. Now you've been authenticated automatically. Provide your credentials if requested. The credentials are the same you used to logon to the SAP Build Lobby.
- 
-     Go back to ADT.
+   ![Create ABAP cloud project](./images/project44.png)
 
-      ![Create ABAP cloud project](./images/project52.png)
+5. Now you've been authenticated automatically. Provide your credentials if requested. The credentials are the same you used to logon to the SAP Build Lobby.   
 
-      Click **Finish**.
+   You can rename the project e.g. such that it includes your group id to `H63_EN_###`
+
+   Go back to ADT.
+
+   ![Create ABAP cloud project](./images/project52.png)
+
+   Click **Finish**.
 
 
-  6. The SAP BTP ABAP Environment system `H63` appears on the project explorer.
+6. The SAP BTP ABAP Environment system `H63` appears on the project explorer.
 
-  7. Right click on the folder **Favorite Packages** and choose **Add Package** from the context menue.
+7. Right click on the folder **Favorite Packages** and choose **Add Package** from the context menue.
   
-     ![Create ABAP cloud project](./images/00_150_add_favorite_package.png) 
+   ![Create ABAP cloud project](./images/00_150_add_favorite_package.png) 
 
-  8. Enter the name `ZAD163_###` of your package and press **OK**.      
+8. Enter the name `ZAD163_###` of your package and press **OK**.      
 
 </details>
 
@@ -108,13 +178,13 @@ Within the package `ZAD163_###` you will find the generated service binding `Z##
   
    ![Open SAP Fiori Elements Preview](./images/00_200_test_service.png)
 
-3. The UI will be shown, but no content is available. There is also no **Create** button available yet, that allow you to create new entities.
+3. The UI will be shown, but no content is available. There is also no **Create** button available yet, that would allow you to create new entities.
 
    ![Open SAP Fiori Elements Preview](./images/00_210_test_service.png)
 
 We will change this by adding **CRUD** capabilities to the generated read-only service.
 
-> ℹ️ It is planned to add the CRUDQ features in the generated service automatically in an upcoming release.
+> ℹ️ It is planned to add the CRUD features in the generated service automatically in an upcoming release.
 
 </details>  
 
@@ -148,7 +218,7 @@ Use the **Open ABAP Development Icon** ![](./images/ADT_open_object.png) in the 
   @AbapCatalog.tableCategory : #TRANSPARENT
   @AbapCatalog.deliveryClass : #A
   @AbapCatalog.dataMaintenance : #ALLOWED
-  define table za72cart {
+  define table z###cart {
 
    key client              : abap.clnt not null;
    key order_uuid          : abap.raw(16) not null;
@@ -180,7 +250,9 @@ The administrative fields that we have added to the table `Z###CART` have to be 
 
 1. Use the **Open ABAP Development Icon** in the toolbar or press `Ctrl+Shift+A` and enter `Z###R_Cart` in the search dialogue to open the cds view editor.
 
-2. Add the following fields as additional fields before the association `_Items` as shown in the following screen shot.   
+   ![Open CDS view editor](./images/00_310_open_data_definition.png)
+
+2. Add the following fields as additional fields before the association `_Items`    
 
 ```ABAP   
   local_created_by as LocalCreatedBy,
@@ -194,8 +266,11 @@ The administrative fields that we have added to the table `Z###CART` have to be 
   last_changed_at as LastChangedAt,
 ``` 
 
+   as shown in the following screen shot.
 
-![add fields to r-view](./images/02_add_fields_to_r_view.png)   
+   ![add fields to r-view](./images/02_add_fields_to_r_view.png)   
+   
+   3. Save and activate your changes.
 
 </details>
 
@@ -203,7 +278,9 @@ The administrative fields that we have added to the table `Z###CART` have to be 
 
 In the generated meta data extensions we have to remove the field `Currency`. If this annotation is not being removed, the currency field will show up twice in the object page for the `Cart`and the `Item` entity.  
 
-> ℹ️ The above mentioned behavior is a bug that will be fixed in an upcoming hotfix collection or latest with the next upcoming release.  
+In addition the UUID based key fields should be marked with the annotation `@UI.hidden: true` so that the users cannot select them in the UI. 
+
+> ℹ️ The above mentioned behaviors are bugs that will be fixed in an upcoming hotfix collection or latest with the next upcoming release.  
 
 <details>
 <summary>Click to expand</summary>
@@ -220,11 +297,94 @@ In the generated meta data extensions we have to remove the field `Currency`. If
 //    importance: #HIGH
 //  } ]
 //  Currency;  
+
+  @UI.hidden: true
+  OrderUuid;
 ```  
 
 so that your coding now looks like   
 
 ![remove UI annotations for currency](./images/00_300_metadata_extensions.png)   
+
+The complete final source code can be found here:  
+<details>
+<summary>Click to expand source code</summary>   
+
+```ABAP
+@Metadata.layer: #CORE
+annotate view Z###C_CartProjection with
+{
+  @UI.facet: [ {
+    id: 'GeneratedFacet1', 
+    purpose: #STANDARD, 
+    type: #FIELDGROUP_REFERENCE, 
+    targetQualifier: 'GeneratedGroup', 
+    position: 10 , 
+    label: 'General Information'
+  }, 
+  {
+    id: 'Items', 
+    purpose: #STANDARD, 
+    type: #LINEITEM_REFERENCE, 
+    label: 'Items', 
+    position: 20 , 
+    targetElement: '_Items'
+  } ]
+//  @UI.fieldGroup: [ {
+//    position: 10 , 
+//    qualifier: 'GeneratedGroup'
+//  } ]
+//  @UI.lineItem: [ {
+//    position: 10 , 
+//    importance: #HIGH
+//  } ]
+//  Currency;  
+
+  @UI.hidden: true
+  OrderUuid;
+  
+  @UI.fieldGroup: [ {
+    position: 20 , 
+    qualifier: 'GeneratedGroup'
+  } ]
+  @UI.lineItem: [ {
+    position: 20 , 
+    importance: #HIGH
+  } ]
+  Notes;
+  
+  @UI.fieldGroup: [ {
+    position: 30 , 
+    qualifier: 'GeneratedGroup'
+  } ]
+  @UI.lineItem: [ {
+    position: 30 , 
+    importance: #HIGH
+  } ]
+  OrderID;
+  
+  @UI.fieldGroup: [ {
+    position: 40 , 
+    qualifier: 'GeneratedGroup'
+  } ]
+  @UI.lineItem: [ {
+    position: 40 , 
+    importance: #HIGH
+  } ]
+  RequestDeliveryDate;
+  
+  @UI.fieldGroup: [ {
+    position: 50 , 
+    qualifier: 'GeneratedGroup'
+  } ]
+  @UI.lineItem: [ {
+    position: 50 , 
+    importance: #HIGH
+  } ]
+  TotalPrice;
+}
+```
+</details>
 
 ### 3.5.2 - Change the metadata extensions `Z###C_ItemProjection`
 
@@ -237,7 +397,10 @@ so that your coding now looks like
 //    position: 10 , 
 //    importance: #HIGH
 //  } ]
-//  Currency;  
+//  Currency; 
+
+  @UI.hidden: true
+  ItemUuid;
 ```  
 
 so that your coding now looks like   
@@ -246,14 +409,14 @@ so that your coding now looks like
 
 </details>
 
-## 3.6 - Change the projection views `Z###C_CartProjection` and `Z###C_ItemProjection` 
+## 3.6 - Change the projection views `Z###C_CartProjection` and `Z###C_ItemProjection`  
 
 In the CDS projection view `Z###C_CartProjection` we have to publish the administrative fields that we have added to the CDS R-view layer .
 
 <details>
 <summary>Click to expand</summary>
 
-### Change projection views `Z###C_CartProjection`
+### Change projection views `Z###C_CartProjection` (data definition)
 
 Add the following entries to make the administrative fields accessible in our service. 
 
@@ -269,9 +432,11 @@ so that your coding now looks like
 
 ![publish administrative fields](./images/00_320_projection_view.png)
 
-### Change projection view  `Z###C_ItemProjection`
+### Change projection view  `Z###C_ItemProjection` (data definition)
 
-In the projection view `Z###C_ItemProjection` we add a value help for the field `OrderedItem` 
+In the projection view `Z###C_ItemProjection` we add a value help for the field `OrderedItem`.
+
+Just copy the following code
 
 ```ABAP 
   @Consumption.valueHelpDefinition: [ { entity: { name: 'ZAD163_I_PRODUCTS', element: 'Material' },
@@ -283,9 +448,10 @@ In the projection view `Z###C_ItemProjection` we add a value help for the field 
                                                                    element: 'Currency',
                                                                    usage: #RESULT } ] } ]
 
-  OrderedItem, 
+  
 ```
 
+just above the property `OrderedItem`  
 so that your coding now looks like   
 
 ![add value help](./images/06_020_add_value_help.png)
@@ -317,6 +483,10 @@ Since the generator of the graphical modeller as of now does not generate the tr
 5. Replace the code in the generated behavior definition with the code below.
 
    > We have provided a code snippet that contains all the changes so that you can replace the coding that is provided by the ADT wizard. A detailed description of the code changes is being provided in the following (optional) exercise.
+
+6. Replace the placeholder `###` with your group id.
+
+   ![replace_placeholder_in_bdef](./images/02_40_replace_placeholder_for_bdef.png)  
 
 -----------------------
 
@@ -416,17 +586,19 @@ authorization dependent by _Parent
 -----------------------
 
 
-6. Replace the placeholder `###` with your group id.
+7. Save your changes. 
 
-6. Save your changes. 
-
-7. Generate the draft tables `Z###CART_D` using the quick fix by clicking on the table name and selecting `Ctrl+1` and select **Create draft table `Z###CART_D` for entity `Z###R_CART`** from the context menue.
+8. Generate the draft tables `Z###CART_D` using the quick fix by clicking on the table name and selecting `Ctrl+1` and select **Create draft table `Z###CART_D` for entity `Z###R_CART`** from the context menue.
 
    ![create root draft table](./images/02_50_generate_draft_root_table.png)  
 
-8. Activate the draft table `Z###CART_D`.
+   ![create root draft table](./images/02_52_create_new_draft_table.png) 
 
-9. Generate the draft table `Z###ITEM_D` using the quick fix by clicking on the table name and selecting `Ctrl+1`  and select **Create draft table `Z###ITEM_D` for entity `Z###R_ITEM`** from the context menue.
+9. Activate the draft table `Z###CART_D`.
+   
+   ![create root draft table](./images/02_54_create_new_draft_table.png)
+
+10. Generate the draft table `Z###ITEM_D` using the quick fix by clicking on the table name and selecting `Ctrl+1`  and select **Create draft table `Z###ITEM_D` for entity `Z###R_ITEM`** from the context menue.
 
     ![create child draft table](./images/02_80_generate_draft_child_table.png) 
 
@@ -457,7 +629,8 @@ In the following section we explain the code changes that have been applied in t
 You can proceed with the next exercise step **Exercise 3.8. - Create a behavior projection** or have more closer look at the coding of the behavior definition ![bdef icon](./images/ADT_bdef.png) `Z###R_CART`.
 
 <details>
-<summary>Expand for code explanations</summary>
+<summary>Expand for code explanations</summary>  
+
 #### Add draft support to the header section
 
 In the haeader section the statement 
@@ -659,53 +832,47 @@ You will notice that basic operations such as **create**, **update** and **delet
 
 In the previous exercise, you have enhanced the base business object data model as well as the projected business object data model and its metadata extension.
 
-In the present exercise, you will define and implement the following determinations:  
+In the present exercise, you will define and implement the determination `calculateOrderID` in the behavior definition for the `Cart` entity.   
 
-In the behavior definition for the `Cart` entity you will define:     
-- the determination `calculateOrderID` will be used to automatically calculate and set a sematic key for the field `orderID`.
+The determination `calculateOrderID` will be used to automatically calculate and set a sematic key for the field `orderID`.
 
 You will use the Entity Manipulation Language (EML) to implement the transactional behavior of the _Cart_ business object. 
 
 <details>
 <summary>Click to expand</summary>
 
+In the following you will define the determination  **`calculateOrderID`** in the behavior definition of the _Cart_ entity.
 
-
-> Define the determination  **`calculateOrderID`** in the behavior definition of the _ShoppingCart_ entity.
-
-- `calculateOrderID` will be used to calculate the sematic key field `OrderId` when the data is saved.
+The determination `calculateOrderID` will be used to calculate the sematic key field `OrderId` when the data is saved.
 
 1. Go to the behavior definiton of the _Cart_ business object entity ![inline](./images/ADT_bdef.png) `ZZ24R_Cart` using ADT and insert the following statements after the statement **`delete;`** as shown on the screenshot below: 
 
-   <!--
-    [`ZR_AD163U###`](/bo/behaviordefinitions/zr_AD163U###)   
-   -->
-
    ```ABAP 
-        determination calculateOrderID on save { create; }   
-   ```
+        determination calculateOrderID on save { create; }  
 
-   <!-- ![ShoppingCart BO Definition](./images/ex04/new14.png) -->
-   ![](./images/03_000_create_determinations.png)
+        field ( readonly )
+        OrderID; 
+   ```     
 
    > **Short explanation**:  
-   > The statements specifiy the names of the new determinations.  
+   > The statement specifies the name of the new determination **`calculateOrderID`**.   
    > The determination **`calculateOrderID`** is configured for `on save` and is thus run when the data is initially saved. (When the **Create** button is pressed.)   
+   > Since the field `OrderID` is now being calculated automatically by the aforementioned determination we will make the field `OrderID` readonly as well.   
+
+   ![add determination](./images/10_000_add_determination.png)  
 
 2. Save ![inline](./images/ADT_save.png) and activate ![inline](./images/ADT_activate.png) the changes.
 
-3. Now, declare the required method in behavior implementation class with ADT Quick Fix.
+3. Now, declare the required method in behavior implementation class with a ADT Quick Fix.
   
-   Set the cursor on the determination name **`calculateOrderID`** and press **Ctrl+1** to open the **Quick Assist** view and select the entry _`Add  missing method of entity zr_AD163U### in local handler class lhc_zr_AD163U### ...`_ in the popup.   
+   Set the cursor on the determination name **`calculateOrderID`** and press **Ctrl+1** to open the **Quick Assist** view and select the entry _`Add  missing method of entity zr_AD163U### in local handler class lhc_cart ...`_ in the popup as shown in the screen shot above.   
 
-   As result a `FOR DETERMINE` method called **`calculateOrderID`**  will be added to the local handler class **`lcl_handler`** of the behavior pool of the _ShoppingCart_ business object entity ![class icon](./images/ADT_class.png) **`ZBP_AD163U###`**.
-
-   <!-- ![ShoppingCart BO Behavior Pool](./images/ex04/new15.png) -->
-   ![](./images/03_010_create_determinations.png)  
+   As result a `FOR DETERMINE` method called **`calculateOrderID`**  will be added to the local handler class **`lhc_cart`** of the behavior pool of the _Cart_ business object entity ![class icon](./images/ADT_class.png) **`Z###BP_R_CART`**.
+    
 
 4. Save ![inline](./images/ADT_save.png) and activate ![inline](./images/ADT_activate.png) the changes in the local handler class **`lhc_cart`**.  
 
-You are now done already with the definition of the determinations.
+You are now done already with the definition of your determination.
 
 </details>
 
@@ -751,7 +918,7 @@ You will now implement the logic of the defined determination in the behavior po
     SELECT COUNT(*) FROM Z###Cart INTO @lv_count.
 
     " Calculate the semantic key based on the count
-    lv_semantic_key = |SEM-{ lv_count + 1 }|.
+    lv_semantic_key = |{ lv_count + 1 }|.
 
     " Read the entities to be updated
     READ ENTITIES OF Z###R_Cart IN LOCAL MODE
@@ -775,141 +942,24 @@ You will now implement the logic of the defined determination in the behavior po
   ENDMETHOD.
 
 ```
-
-### Define and implement additional determinations (optional)
-
-Depending on how fast you have already worked through the script you can define additional determinations or you can continue with **3.12 - Define validations**. 
-
-In the behavior definition for the `Cart` entity you can define in addtion:  
-- the determination `calculateTotalPrice` to calculate the total price from the prices of all items.  
-
-In the behavior definition for the `Item` entity you can define:        
-- the determination `calculateItemID` to automatically calculate and set a semantic key for the field `ItemID`
-- the determination `ItemPrice` to calculate the price of each item from the field `Quantity` and the value of the field `ItemUnitPrice`
-
-<details>
-<summary>Click to expand</summary>
-
-1. Add the following statement to define determination `calculateTotalPrice` to the behavior definition of the `Cart` entity:   
-
-```ABAP
-determination calculateTotalPrice on modify { create; }
-```
-
-2. Add the following statements to define the determinations `calculateOrderID` and ` ` the behavior definition of the `Item` entity:
-
-```ABAP
-determination calculateOrderID on save { create; }
-determination calculateTotalPrice on modify { create; }
-```
-
-3. Use the quick fix `Ctrl+1` to generate the methods in the behavior implementation class 
-
-4. Use the quick fix **Predict RAP business logic** for the remaining determinations and use the following prompts:  
-
-   | determination | Prompt |
-   | ------------------| -------------------------------------------------------- |
-   | `ItemPrice`       | `Calculate ItemPrice from Quantity and ItemUnitPrice`    |
-   | `calculateItemID` | `Calculate a semantic key using the number of entries in table Z###ITEM`  |
-   | `calculateTotalPrice` | `Calculate TotalPrice from the ItemPrices of the entity Item`    |
-
-You should receive results like the following:
-
-### Itemprice
-
-```ABAP
-METHOD ItemPrice.
-
-  READ ENTITIES OF z###r_cart IN LOCAL MODE
-    ENTITY Item
-      FIELDS ( Quantity ItemUnitPrice )
-      WITH CORRESPONDING #( keys )
-    RESULT DATA(entities).
-
-  LOOP AT entities INTO DATA(entity).
-    DATA(lv_item_price) = entity-Quantity * entity-ItemUnitPrice.
-
-    MODIFY ENTITIES OF z###r_cart IN LOCAL MODE
-      ENTITY Item
-        UPDATE FIELDS ( ItemPrice )
-        WITH VALUE #(
-          ( %tky = entity-%tky
-            ItemPrice = lv_item_price )
-        ).
-  ENDLOOP.
-  ENDMETHOD.
-```
-
-### calculateItemID
-
-```ABAP
-  METHOD calculateItemID.
-
-  DATA: lv_count TYPE i,
-        lv_semantic_key TYPE string.
-
-  SELECT COUNT(*) FROM z###item INTO @lv_count.
-
-  lv_semantic_key = |ITEM_{ lv_count }|.
-
-  MODIFY ENTITIES OF z###r_cart IN LOCAL MODE
-    ENTITY Item
-      UPDATE FIELDS ( ItemID )
-      WITH VALUE #(
-        FOR key IN keys
-        ( %tky = key-%tky
-          ItemID = lv_semantic_key )
-      ).
-  ENDMETHOD.
-```
-
-### calculateTotalPrice
-
-```ABAP
-  METHOD calculateTotalPrice.
-
-    READ ENTITIES OF z###r_cart IN LOCAL MODE
-      ENTITY Item
-        FIELDS ( ItemPrice )
-        WITH CORRESPONDING #( keys )
-      RESULT DATA(entities).
-
-    DATA lv_total_price TYPE decfloat34 VALUE 0.
-
-    LOOP AT entities INTO DATA(entity).
-      lv_total_price += entity-ItemPrice.
-    ENDLOOP.
-
-    MODIFY ENTITIES OF z###r_cart IN LOCAL MODE
-      ENTITY Cart
-        UPDATE FIELDS ( TotalPrice )
-        WITH VALUE #(
-          FOR key IN keys
-          ( %tky = key-%tky
-            TotalPrice = lv_total_price )
-        ).
-  ENDMETHOD.
-```
-</details> 
 </details>  
 
 ## 3.12 - Define validations
 
-In the previous exercise, you have defined and implemented a determination during the creation of new instances of BO entity _Cart_. Since the content (e.g. the field `Quantity`) can be invalid we would to check the data quality upfront.   
+In the previous exercise, you have defined and implemented a determination that is run during the creation of new instances of the BO entity _Cart_. 
+
+Since the content can be invalid (e.g. the date that has been selected as a delivery date lies in the past) we would like to check the data quality upfront.   
 
 <details>
 <summary>Click to expand</summary>
 
-In the present exercise, you're going to define and implement validations for the fields `RequestDeliveryDate` in the entity `Cart`and the fields `OrderedItem` and `Quantity` in the entity `Item`, to check the following:
+In the present exercise, you're going to define and implement a validation for the field `RequestDeliveryDate` in the entity `Cart` to check the following:
 
+|Entity | Validation    | Purpose |
+| -------- | -------- | ------- |
+| Cart | `validateRequestDeliveryDate` | The value for the field `RequestDeliveryDate` shall not be initial and shall not lie in the past.     |
 
-| validation    | Purpose |
-| -------- | ------- |
-| `validateOrderedItem` | The value shall shall not be initial and must exist in the cds view `ZAD163_I_PRODUCTS`    |
-| `validateRequestedDeliveryDate` | The value for the field `RequestDeliveryDate` shall not be initial and shall not lie in the past.     |
-| `validateOrderQuantity`    | The value for the field `Quantity` shall not be initial.   |
-
-These validations are only performed in the back-end (not on the UI) and are triggered independently of the caller, i.e. Fiori UIs or EML APIs.
+This validation (as all validations) is only performed in the back-end (not on the UI) and is triggered independently of the caller, i.e. Fiori UIs or EML APIs.
 
 
 <!--
@@ -932,50 +982,24 @@ A validation is implicitly invoked by the business object’s framework if the t
   
 1. Open your behavior definition **`Z###R_Cart`** using ADT.    
 
-2. Because empty values will not be accepted for the fields **`OrderedItem`**, **`RequestedDeliveryDate`**, and **`OrderQuantity`**, specify them as _mandatory_ field 
-   by adding the following code snippets at the top of both behavior definitions as shown on the screenshot below.
- 
-   - in the behavior definition of the `Cart` entity add the following code snippet:  
+2. Because empty values will not be accepted for the field **`RequestDeliveryDate`**, specify it as a _mandatory_ field by adding the following code snippet at the top of the behavior definition of the `Cart` entity as shown on the screenshot below.
 
 ```ABAP  
   // mark mandatory fields
   field ( mandatory )
   RequestDeliveryDate;
 ```    
-   - in the behavior definition of the `Item` entity add the follwoing code snippet: 
-
-```ABAP  
-  // mark mandatory fields
-  field ( mandatory )
-  Quantity,
-  OrderedItem;
-``` 
 
    Your source code should look like this:   
 
-   ![mandatory fields bdef](./images/12_010_mandatory_fields_cart.png)
+   <img src="images/12_010_mandatory_fields_cart.png" alt="mandatory fields bdef" width="50%">     
 
-   and   
- 
-   ![mandatory fields bdef](./images/12_020_mandatory_fields_item.png)  
+3. Define the validation **`validateRequestDeliveryDate`**. For that, add the following code snippet in the behavior definition of the `Cart` entity right before the draft actions as shown on the screenshot below.
 
-
-3. Define the validations **`validateOrderedItem`**, **`validateRequestedDeliveryDate`** and **`validateQuantity`**.
-
-   For that, add the following code snippet after the determination as shown on the screenshot below.
-
-   - in the behavior definition of the `Cart` entity add the following code snippet:  
-
- ```ABAP      
+```ABAP      
       validation validateRequestDeliveryDate on save { create; field RequestDeliveryDate; }
- ```   
-   - in the behavior definition of the `Item` entity add the follwoing code snippet: 
-
- ```ABAP      
-      validation validateOrderQuantity on save { create; field Quantity; }
-      validation validateOrderedItem on save { create; field OrderedItem; }
- ```   
-
+```   
+ 
 4. In order to have draft instances being checked by validations before they become active, they have to be specified for the **`draft determine action prepare`** in the behavior definition.
   
    Replace the code line **`draft determine action Prepare;`** with the following code snippet as shown on the screenshot below
@@ -985,60 +1009,51 @@ A validation is implicitly invoked by the business object’s framework if the t
     draft determine action Prepare
     {     
      validation validateRequestDeliveryDate;
-     validation item~validateOrderQuantity;
-     validation item~validateOrderedItem;
     }
 ```
 
    Your source code should look like this: 
 
-   ![validations bdef](./images/12_030_determine_action.png)  
+   <img src="images/12_030_determine_action.png" alt="validations bdef" width="50%">  
 
    **Short explanation**:
    - Validations are always invoked during the save and specified with the keyword `on save`.
  
    - `validateRequestDeliveryDate` is a validation with trigger operation `create` and trigger field `RequestDeliveryDate`   
-   - `validateOrderQuantity` is a validation with trigger operation `create` and trigger field `OrderQuantity`   
-   - `validateOrderedItem` is a validation with trigger operation `create`and trigger field `OrderedItem`   
+    
 
    **ℹ Hint**:
    > In case a validation should be invoked at every change of the BO entity instance, then the trigger conditions `create`and `update`
-   > must be specified: e.g. `validation validateRequestedDeliveryDate on save { create; update; }`
+   > must be specified: e.g. `validation validateRequestDeliveryDate on save { create; update; }`
 
 5. Save ![inline](./images/ADT_save.png) and activate ![inline](./images/ADT_activate.png) the changes.
 
-6. Add the appropriate **`FOR VALIDATE ON SAVE`** methods to the local handler classes of the behavior pool of the _Cart_ BO entity and the _Item_ BO entity via quick fix.  
+6. Add the appropriate **`FOR VALIDATE ON SAVE`** methods to the local handler classes of the behavior pool of the _Cart_ BO entity via quick fix.  
 
-   For that, set the cursor on one of the validation names and press **Ctrl+1** to open the **Quick Assist** view and select the entries **`Add all 2 missing methods of entity z###r_item ...`** and **`Add method for validation validaterequestdata of entity z###r_cart...`**
+   For that, set the cursor on one of the validation name `validateRequestDeliveryDate`and press **Ctrl+1** to open the **Quick Assist** view and select the entry **`Add method for validation validaterequestdeliverydate of entity z###r_cart...`**
 
    ![quick fix validations](./images/12_040_add_methods_for_validations.png)  
-
-   and
-
-   ![quick fix validations](./images/12_050_add_methods_for_validations.png)  
-
-   As a result, the **`FOR VALIDATE ON SAVE`** methods **`validateOrderedItem`**, **`validateRequestDeliveryDate`** and **`validateQuantity`** will be added to the local handler classes `lhc_cart` and `lhc_item` of the behavior pool of the _Cart_ BO entity and the _Item_ BO entity ![inline](./images/ADT_class.png)`z###bp_r_cart`.
-
-   ![quick fix validations result](./images/05-030-add-validations-bdef-r-quick-fix-result.png)
+   
+   As a result, the **`FOR VALIDATE ON SAVE`** method **`validateRequestDeliveryDate`** will be added to the local handler classes `lhc_cart` of the behavior pool ![inline](./images/ADT_class.png)`z###bp_r_cart` of the _Cart_ BO entity.
 
 7. Save ![inline](./images/ADT_save.png) and activate ![inline](./images/ADT_activate.png) the changes.
 
 > Hint:  
-> If you get an error message in the behavior implementation `The entity "ZR_CART###" does not have a validation "VALIDATEORDERQUANTITY".` try to activate the behavior definition once again.  
+> If you get an error message in the behavior implementation `The entity "ZR_CART###" does not have a validation "VALIDATEREQUESTDELIVERYDATE".` try to activate the behavior definition once again.  
 
 </details>
 
 ## 3.13 - Implement the validations using Joule 💎   
 
-In this exercise we will implement the previously created validations.
+In this exercise we will implement the previously created validation.
 
 <details>
 <summary>Click to expand</summary>
  
 
-1. First, check the interface of the new methods in the declaration part of the local handler class `lhc_cart` of the behavior pool of the _Cart_ BO entity ![class icon](./images/ADT_class.png)**`z###bp_r_cart`**.
+1. First, check the interface of the new method in the declaration part of the local handler class `lhc_cart` of the behavior pool of the _Cart_ BO entity ![class icon](./images/ADT_class.png)**`z###bp_r_cart`**.
 
-   For that, set the cursor on the method name, e.g. **`validateOrderedItem`**, press **F2** to open the **ABAP Element Info** view, and examine the full method interface.
+   For that, set the cursor on the method name, e.g. **`validateRequestDeliveryDate`**, press **F2** to open the **ABAP Element Info** view, and examine the full method interface.
 
    ![examine method interface f2](./images/13_010_validation_signature.png) 
 
@@ -1052,25 +1067,26 @@ In this exercise we will implement the previously created validations.
 
    You can go ahead and implement the validation method.
 
-2. Now implement the three methods in the implementation part of the class.
+2. Now implement the newly created method in the implementation part of the class.
   
     The logic consists of the following main steps:
     1. Read the ShoppingCart instance(s) of the transferred keys (**`keys`**) using the EML statement **`READ ENTITIES`**.
-    2. The addition **`FIELDS`** is used to specify the fields to be read. E.g. only **`OrderedItem`** is relevant for the  validation `validateOrderedItem`.  
+    2. The addition **`FIELDS`** is used to specify the fields to be read. E.g. only **`RequestDeliveryDate`** is relevant for the  validation `validateRequestDeliveryDate`.  
        The addition `ALL FIELDS` can be used to read all fields.
     3. The addition **`IN LOCAL MODE`** is used to exclude feature controls and authorization checks.
-    4. Read all the transfered (distinct, non-initial) customer IDs and check if they exist.  
-    5. Prepare/raise messages for all transferred _ShoppingCart_ instances with initial and non-existing `OrderedItem`  
-       and set the changing parameter **`reported`**
+    4. Check if the value of the field `RequestDeliveryDate` is either initial or lies in the past.  
+    5. Prepare/raise messages for all transferred _Cart_ instances with initial and or non valid value of `RequestDeliveryDate` and set the changing parameter **`reported`**
 
 
 
-3. Now implement the method **`validateOrderQuantity`** in the implementation part of the local handler class. Place the cursor behind the statement `METHOD validateOrderQuantity.` and press **Ctrl+1** to start the quick assistant.
+3. Now implement the method **`validateRequestDeliveryDate`** in the implementation part of the local handler class. Place the cursor behind the statement `METHOD validateRequestDeliveryDate.` and press **Ctrl+1** to start the quick assistant.
 
 4. In the popup select **Predict RAP business logic**.  
 
+   ![predict rap business logic validation](./images/13_020_validation_ai_implementation.png)
+
 5. Enter the following prompt:  
-   **`Check that the field is not initial`**   
+   **`Check that the field is not initial and that the date entered in the field is in the future. Do not use the outdated sy-datum statement.`**   
    in the dialogue box of the instant action and press **Run**.    
 
 6. Check that the generated code looks like the following. 
@@ -1080,112 +1096,17 @@ In this exercise we will implement the previously created validations.
      ```ABAP
          APPEND  VALUE #(
           %tky        = entity-%tky
-          %state_area = 'Validation-Quantity'
+          %state_area = 'Validation-RequestDeliveryDate'
          ) TO reported-Item.
      ```  
+   > And the state area should have a unique value, so change (if necessary) the value `validation` to something like `Validation-RequestDeliveryDate`.    
+
+   ![predict rap business logic validation](./images/13_030_validation_ai_implementation.png)
+
    A working implementation looks like follows:  
 
  ```ABAP
-  METHOD validateOrderQuantity.
-
-    READ ENTITIES OF z###r_cart IN LOCAL MODE
-      ENTITY Item
-        FIELDS ( Quantity )
-        WITH CORRESPONDING #( keys )
-      RESULT DATA(entities).
-
-    LOOP AT entities INTO DATA(entity).
-      APPEND VALUE #(
-          %tky        = entity-%tky
-          %state_area = 'Validation-Quantity'
-      ) TO reported-Item.
-
-      IF entity-Quantity IS INITIAL.
-        APPEND VALUE #( %tky = entity-%tky ) TO failed-Item.
-        APPEND VALUE #(
-            %tky        = entity-%tky
-            %state_area = 'Validation-Quantity'
-            %msg        = new_message_with_text(
-              text     = 'Quantity must not be initial.'
-              severity = if_abap_behv_message=>severity-error
-            )
-        ) TO reported-Item.
-      ENDIF.
-    ENDLOOP.
-
-  ENDMETHOD.
-
- ```
-
-
-
-5. Next implement   
-   - the method  `validateOrderedItem` in the implementation part of the local handler class `lhc_item` and
-   - the method `validateRequestedDeliveryDate` in the implementation part of the local handler class `lhc_cart`
-   and use the following prompts:
-
-| validation    | Savings |
-| -------- | ------- |
-|  `validateOrderedItem` | `Check that the field is not initial and that the value is in the cds view ZAD163_I_PRODUCTS`    |
-| `validateRequestedDeliveryDate` | `Check that the field is not initial and that the date entered in the field is in the future. Do not use the outdated sy-datum statement.` |
-
-7. Check that the generated code looks like follows:
-
-### validateOrderedItem
-
-```ABAP  
-  METHOD validateOrderedItem.
-
-    READ ENTITIES OF z###r_cart IN LOCAL MODE
-      ENTITY Item
-        FIELDS ( OrderedItem )
-        WITH CORRESPONDING #( keys )
-      RESULT DATA(entities).
-
-    LOOP AT entities INTO DATA(entity).
-      APPEND VALUE #(
-          %tky        = entity-%tky
-          %state_area = 'Validation-OrderedItem'
-      ) TO reported-Item.
-
-      IF entity-OrderedItem IS INITIAL.
-        APPEND VALUE #( %tky = entity-%tky ) TO failed-Item.
-        APPEND VALUE #(
-            %tky        = entity-%tky
-            %state_area = 'Validation-OrderedItem'
-            %msg        = new_message_with_text(
-              text     = 'OrderedItem must not be initial.'
-              severity = if_abap_behv_message=>severity-error
-            )
-        ) TO reported-Item.
-      ELSE.
-        SELECT SINGLE * FROM zad163_i_products
-          WHERE material = @entity-OrderedItem
-          INTO @DATA(lv_product).
-
-        IF sy-subrc <> 0.
-          APPEND VALUE #( %tky = entity-%tky ) TO failed-Item.
-          APPEND VALUE #(
-              %tky        = entity-%tky
-              %state_area = 'Validation-OrderedItem'
-              %msg        = new_message_with_text(
-                text     = 'OrderedItem is not valid.'
-                severity = if_abap_behv_message=>severity-error
-              )
-          ) TO reported-Item.
-        ENDIF.
-      ENDIF.
-    ENDLOOP.
-
-
-  ENDMETHOD.
-```
-
-
-### validateRequestDeliveryDate
-
-```ABAP    
-  METHOD validateRequestDeliveryDate.
+   METHOD validateRequestDeliveryDate.
 
     READ ENTITIES OF z###r_cart IN LOCAL MODE
       ENTITY Cart
@@ -1212,7 +1133,8 @@ In this exercise we will implement the previously created validations.
       ENDIF.
     ENDLOOP.
   ENDMETHOD.
-```
+
+ ```
 
 </details>
 
@@ -1220,14 +1142,14 @@ In this exercise we will implement the previously created validations.
 
 > Now the SAP Fiori elements app can be tested.    
 
-You can either refresh your application in the browser using **F5** if the browser is still open - or go to your service binding **`ZUI_AD163U###_O4`** and start the Fiori elements App preview for the **`ShoppingCart`** entity set.
+You can either refresh your application in the browser using **F5** if the browser is still open - or go to your service binding **`ZUI_AD163U###_O4`** and start the Fiori elements App preview for the **`CartProjection`** entity set.
 
 <details>
 <summary>Click to expand</summary>
 
 1. Click **Create** to create a new entry.
 
-2. Select `TG11` as OrderdItem, enter an quantity and a requested delivery date **that lies in the past**. 
+2. Select a requested delivery date **that lies in the past**. 
 
    The draft will be updated.
 
@@ -1242,7 +1164,7 @@ You can either refresh your application in the browser using **F5** if the brows
 
 Now that you have... 
 
-- defined determinations and validations in the behavior definition, 
+- defined a determination and a validations in the behavior definition, 
 - implemented them in the behavior pool, and
 - previewed and tested the enhanced Fiori elements app,
 

@@ -1,0 +1,143 @@
+managed implementation in class ZZ01BP_R_CART unique;
+strict ( 2 );
+with draft;
+extensible;
+define behavior for ZZ01R_Cart alias Cart
+persistent table zz01cart
+extensible
+draft table zz01cart_d
+etag master LocalLastChangedAt
+lock master total etag LastChangedAt
+authorization master ( global )
+{
+  // mark mandatory fields
+  field ( mandatory )
+  RequestDeliveryDate;
+
+  field ( readonly )
+  OrderUuid,
+  LocalCreatedBy,
+  LocalCreatedAt,
+  LocalLastChangedBy,
+  LocalLastChangedAt,
+  LastChangedAt;
+
+  field ( numbering : managed )
+  OrderUuid;
+
+
+  create;
+  update;
+  delete;
+
+  determination calculateOrderID on save { create; }
+  determination calculateTotalPrice on modify { create; }
+
+  validation validateRequestDeliveryDate on save { create; field RequestDeliveryDate; }
+
+  draft action Activate optimized;
+  draft action Discard;
+  draft action Edit;
+  draft action Resume;
+  //draft determine action Prepare;
+  draft determine action Prepare
+  {
+    validation validateRequestDeliveryDate;
+    validation item~validateOrderQuantity;
+    validation item~validateOrderedItem;
+  }
+
+  mapping for zz01cart corresponding extensible
+    {
+      OrderUuid           = order_uuid;
+      Currency            = currency;
+      Notes               = notes;
+      OrderID             = order_id;
+      TotalPrice          = total_price;
+      RequestDeliveryDate = request_delivery_date;
+      LocalCreatedBy      = local_created_by;
+      LocalCreatedAt      = local_created_at;
+      LocalLastChangedBy  = local_last_changed_by;
+      LocalLastChangedAt  = local_last_changed_at;
+      LastChangedAt       = last_changed_at;
+    }
+
+  association _Items { create; with draft; }
+
+}
+
+define behavior for ZZ01R_Item alias Item
+persistent table zz01item
+extensible
+draft table zz01item_d
+etag dependent by _Parent
+lock dependent by _Parent
+authorization dependent by _Parent
+{
+  // mark mandatory fields
+  field ( mandatory )
+  Quantity,
+  OrderedItem;
+
+  field ( readonly )
+  ItemUuid,
+  ParentUuid;
+
+  field ( numbering : managed )
+  itemUuid;
+
+  determination calculateItemID on save { create; }
+  determination calculateItemPrice on modify { create; }
+
+  validation validateOrderQuantity on save { create; field Quantity; }
+  validation validateOrderedItem on save { create; field OrderedItem; }
+
+  update;
+  delete;
+
+  mapping for zz01item corresponding extensible
+    {
+      itemUuid      = item_uuid;
+      ParentUuid    = parent_uuid;
+      Currency      = currency;
+      ItemID        = item_id;
+      ItemPrice     = item_price;
+      ItemUnitPrice = item_unit_price;
+      OrderedItem   = ordered_item;
+      Quantity      = quantity;
+    }
+
+  association _Parent { with draft; }
+
+}
+
+
+
+
+//managed implementation in class zbp_z01r_cart unique;
+//strict ( 2 );
+//
+//define behavior for ZZ01R_Cart //alias <alias_name>
+//persistent table zz01cart
+//lock master
+//authorization master ( instance )
+////etag master <field_name>
+//{
+//  create ( authorization : global );
+//  update;
+//  delete;
+//  field ( readonly ) OrderUuid;
+//  association _Items { create; }
+//}
+//
+//define behavior for ZZ01R_Item //alias <alias_name>
+//persistent table zz01item
+//lock dependent by _Parent
+//authorization dependent by _Parent
+////etag master <field_name>
+//{
+//  update;
+//  delete;
+//  field ( readonly ) ItemUuid;
+//  association _Parent;
+//}

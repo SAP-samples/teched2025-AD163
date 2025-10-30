@@ -24,10 +24,11 @@ This repository contains the material for the SAP TechEd 2025 session called **A
 ## Overview
 [^Top of page](#)
 
-ABAP Cloud is the development model for building clean core compliant apps, services, and extensions on SAP S/4HANA Cloud, SAP S/4HANA, and SAP BTP ABAP Environment. ABAP Cloud covers different development scenarios such as transactional, analytical, intgeration, and enterprise search scenarios. The ABAP RESTful Application Programming Model (RAP) is the heart of ABAP Cloud for building transactional SAP Fiori apps, OData-based Web API, local APIs, and business events.
+ABAP Cloud is the development model for building clean core compliant apps, services, and extensions on SAP S/4HANA Cloud, SAP S/4HANA, and SAP BTP ABAP Environment. ABAP Cloud covers different development scenarios such as transactional, analytical, inegration, and enterprise search scenarios. The ABAP RESTful Application Programming Model (RAP) is the heart of ABAP Cloud for building transactional SAP Fiori apps, OData-based Web API, local APIs, and business events.
 
-This hands-on session introduces attendees to ... 
+> This hands-on session introduces attendees to practice fusion development of ABAP Cloud in SAP Build solutions by creating an ABAP Cloud project from the lobby for SAP Build, model the data model using the graphical modeller in SAP Build Code and to implement the ABAP RESTful application programming model business object using ADT, including an SAP Fiori app on top.
 
+<img src="resulting_app.gif" alt="create package" width="50%">
 
 ## Presentation & Replay
   
@@ -36,30 +37,18 @@ This hands-on session introduces attendees to ...
 ## Exercises
 [^Top of page](#)
 
-> In this exercise block, you will learn how to build a ... Finally, you will learn how to implement ...
 
-<details>
-   <summary>Resulting SAP Fiori app 01: Manage Agencies > Click to expand!</summary>
-     <img src="" alt="create package" width="100%">
-</details>  
 
 | Exercises | -- |
 | ------------- |  -- |
-| [Getting Started](exercises/ex0/README.md) | -- |
 | [Exercise 1: Create an ABAP project in the SAP Build Lobby](exercises/ex1/README.md) | -- |
 | [Exercise 2: Create a Shopping Cart business object, projection and service with the graphical modeler in BAS](exercises/ex2/README.md) | -- |
 | [Exercise 3: Implement transactional behavior in ADT, create validations and determinations](exercises/ex3/README.md) | -- |
 | [Exercise 4: Create, preview and adapt a SAP Fiori elements application](exercises/ex4/README.md) | -- |
-| [Exercise 5: Create and deploy an SAP Fiori app to the SAP BTP ABAP Environment with SAP Business Application Studio](exercises/ex5/README.md) | -- |
-
-
-### Optional Exercise: Deploy the Fiori application
-
-[Exercise 5: Create and deploy an SAP Fiori app to the SAP BTP ABAP Environment with SAP Business Application Studio](exercises/ex5/README.md)
 
 ## Solution Package
 
-You can find a solution for this workshop in the development package ...
+You can find a solution for this workshop in the development package **`ZAD163_Z01`**
 
 ## Known Issues
 [^Top of page](#)

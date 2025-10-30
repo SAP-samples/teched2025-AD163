@@ -1,0 +1,29 @@
+projection;
+strict ( 2 );
+use draft;
+use side effects;
+
+define behavior for ZZ01C_CartProjection alias Cart
+use etag
+{
+  use create;
+  use update;
+  use delete;
+
+  use action Activate;
+  use action Discard;
+  use action Edit;
+  use action Resume;
+  use action Prepare;
+
+  use association _Items { create; with draft; }
+}
+
+define behavior for ZZ01C_ItemProjection alias Item
+use etag
+{
+  use update;
+  use delete;
+
+  use association _Parent { with draft; }
+}

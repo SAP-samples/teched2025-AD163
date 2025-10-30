@@ -1,0 +1,70 @@
+@Metadata.layer: #CORE
+annotate view ZZ01C_ItemProjection with
+{
+  @UI.facet: [ {
+    id: 'GeneratedFacet1',
+    purpose: #STANDARD,
+    type: #FIELDGROUP_REFERENCE,
+    targetQualifier: 'GeneratedGroup',
+    position: 10 ,
+    label: 'General Information'
+  } ]
+  //  @UI.fieldGroup: [ {
+  //    position: 10 ,
+  //    qualifier: 'GeneratedGroup'
+  //  } ]
+  //  @UI.lineItem: [ {
+  //    position: 10 ,
+  //    importance: #HIGH
+  //  } ]
+  //  Currency;
+
+  @UI.hidden: true
+  ItemUuid;
+
+  @UI.fieldGroup: [ {
+    position: 20 ,
+    qualifier: 'GeneratedGroup'
+  } ]
+  @UI.lineItem: [ {
+    position: 20 ,
+    importance: #HIGH
+  } ]
+  ItemID;
+
+  @UI.fieldGroup: [ {
+    position: 30 ,
+    qualifier: 'GeneratedGroup'
+  } ]
+  @UI.lineItem: [ {
+    position: 30 ,
+    importance: #HIGH
+  } ]
+  ItemPrice;
+
+  @UI.fieldGroup: [ {
+    position: 40 ,
+    qualifier: 'GeneratedGroup'
+  } ]
+  @UI.lineItem: [ {
+    position: 40 ,
+    importance: #HIGH
+  } ]
+  ItemUnitPrice;
+
+  @UI.fieldGroup: [ {
+    position: 50 ,
+    qualifier: 'GeneratedGroup'
+  } ]
+  @UI.lineItem: [ {
+    position: 50 ,
+    importance: #HIGH
+  } ]
+  OrderedItem;
+
+  @UI.fieldGroup: [ {
+    position: 60 ,
+    qualifier: 'GeneratedGroup'
+  } ]
+  Quantity;
+}

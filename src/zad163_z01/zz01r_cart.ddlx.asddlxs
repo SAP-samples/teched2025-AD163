@@ -1,0 +1,11 @@
+@Metadata.layer: #CORE
+annotate view ZZ01R_Cart with
+{
+  @Consumption.valueHelpDefinition: [ {
+    entity: {
+      element: 'Currency', 
+      name: 'I_CurrencyStdVH'
+    }
+  } ]
+  Currency;
+}

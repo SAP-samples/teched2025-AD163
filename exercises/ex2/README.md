@@ -11,6 +11,7 @@ In this exercise, you will create a shopping cart business model with two entiti
 - [Model the Shopping Cart Business Object](#exercise-model-the-shopping-cart-business-object)
 - [Model the Shopping Cart Projection](#exercise-model-the-shopping-cart-projection)
 - [Model the Shopping Cart Service](#exercise-model-the-shopping-cart-service)
+- [Shortcut in case of modelling problems](#shortcut-in-case-of-modelling-problems)
 - [Generate the RAP service](#exercise-generate-the-rap-service)
 - [Summary & Next Exercise](#summary--next-exercise)  
 
@@ -21,100 +22,155 @@ In this exercise, you will create a shopping cart business model with two entiti
 ## Exercise: Sign in to SAP Build Code and open the SAP Build Code Storyboard
 [^Top of page](#)
 
-1. As you have opened SAP Build Code in your browser by clicking on the newly created project name in the previous exercise, logon with the credentials given for your exercise group. This opens the SAP Build Code Storyboard with your project.
+1. Click on the project created in the last exercise to start **SAP Build Code**. 
 
-  <img src="images/p201.png" alt="storyboard" width="100%">
+   <img src="images/02_000_start_sap_build_code_from_project.png" alt="storyboard" width="100%">   
 
-2. Open the Business Objects modeler view by clicking **+** under **Create an entity**.
+2. This opens the SAP Build Code Storyboard with your project.   
+Open the Business Objects modeller view by clicking the plus symbol **`+`** under **Create an entity** in the section **Business Objects**.
+
+   <img src="images/02_010_Storyboard.png" alt="storyboard" width="100%">   
+
+> **Hint:**   
+> Using the elements in the lower right corner you navigate and adopt the view of your model if it doesn't fit correctly in your screen.   
 
 ## Exercise: Model the Shopping Cart Business Object
 [^Top of page](#)
 
-> Note: Next to the empty Business Object Modeler you can see an **ZAD163_###.abap.csn** file. This file resides on your ABAP system in the package you created in Exercise 1. This file is used by the modeler to store your model. You should not edit this file manually since this can damage the integrity of the model.
+> Note: The Business Object Modeler that has just opened uses an **ZAD163_###.abap.csn** file to store the model defintion. This file resides on your ABAP system in the package you created in Exercise 1. You should not edit this file manually since this can damage the integrity of the model.  
+To speed up the creation of a model it is possible to use an existing csn file as a template.  
+If you don't manage to model the business object you can use a csn file provided in this script as a template as described here: [Shortcut in case of modelling problems](#shortcut-in-case-of-modelling-problems).  
 
 ### Model the entity `Cart`
 
-<img src="images/p202.png" alt="emptyBusinessObjectModeler" width="100%">
+
+   <img src="images/02_020_business_object_start.png" alt="emptyBusinessObjectModeler" width="100%">
 
 1. In the Business Object modeler press **Add Entity** and drag the new entity to the center of the work area. The name **Entity1** is highlighted and you can use your keyboard to input **'Cart'** right away. Else, double click on the name **Entity1** to select and change the name.
 
-   <img src="images/g201.gif" alt="createCartEntity" width="100%">
+   <img src="images/02_030_add_entity.gif" alt="createCartEntity" width="100%">
 
 2. Add a label for the **Cart** entity by selecting the entity with a click, then on the appearing right-side menu of the entity select **Show Details**. In the now opened details pane add **ShoppingCart** as the label.
 
-   <img src="images/g202.gif" alt="setLabel" width="100%">
+   <img src="images/02_040_add_label_to_cart_entity.gif" alt="setLabel" width="100%">
 
 3. On the right hand side of the `Cart` entity click on the button **Set Root Entity**. 
 
-   <img src="images/003_make_cart_root_entity.png" alt="setLabel" width="100%">
+   <img src="images/02_050_set_root_entity.png" alt="setLabel" width="100%">
 
-3. Add the following properties to the Cart entity. You can either edit and add properties by double-clicking the pre-generated **ID** property and changing it's values. Add a new property from there by hitting enter once you are done editing. Or add the properties via the **Properties** pane that we opened in the previous step. 
+3. In the next steps we will add the following properties to the **`Cart`** entity. 
+In addition we will rename the pre-generated **ID** property to **OrderUuid**.
 
-4. **OrderUUID**:
-  The pre-generated **ID** is a key field already and has the right type **abap.raw(16)**. Just change the name to **OrderUUID** and press **Enter** this will create a new property below.
-
-<img src="images/g203.gif" alt="orderUUID" width="100%">
-  
-5. In the newly created property field enter:  
-
-   - **OrderID** in the **Name** field   
-   - **abap.numc** in the **Type** field and  
-   - **8** in the **Length** field   
-
-  Proceed the same way for the next properties (name: type(length)):
-
-   | **Property name**   | **Type**     |  **Length**  |   
-   |---------------------|--------------|--------------|        
-   | RequestDeliveryDate | datn         |     -        |
-   | Notes               | char         |    100       |
-
-<img src="images/g204.gif" alt="properties" width="100%">
-
-6. **TotalPrice**  
-   Add a new property. Fill **TotalPrice** for the name and select the type **curr**. This will add precision and scale fields where you enter **11** for precision and **2** for scale.  
-   The property is  missing the Currency field. To create and add this open the details dialog of the property by clicking on the right-pointing arrow next to the property. Scroll down to **Currency** and enter here **Currency**. Press enter and close the dialog with **OK**. 
+> ⚠️ Please be sure to use the above mentioned name **OrderUuid** in CamelCase and do NOT use **OrderUUID** because this would lead to different field names on table level. This behavior will be changed in a future release.
 
 
-You are now all set with the Cart entity.
+| **Property name**  | **Type**     |  **Length** or **(Precision/Scale)**  |   
+|--------------------|--------------|--------------| 
+| **OrderUuid**       |  **raw**     |     **16**  |       
+| OrderID             | numc         |     8       |       
+| RequestDeliveryDate | datn         |     -       |
+| Notes               | char         |    100      |
 
-<img src="images/g205.gif" alt="currency" width="100%">
+
+
+<img src="images/02_050_add_fields_to_cart_entity.gif" alt="orderUuid" width="100%">
+
+4. To add and maintain properties of the `Cart` entity we will use the build-in property editor. To open the property editor click on entity name `Cart (R)` and then choose **Show Details** on the right hand side.
+
+   - Start with renaming **ID** to **OrderUuid**:  
+   To rename the pre-generated **ID** key field click on the field in the property editor and just change the name to **OrderUuid** and press **Enter** or press the plus sign **`+`** to create a new property.  
+   - In the newly created property field enter the values from the table above, e.g.:     
+     - enter **OrderID** in the **Name** field   
+     - select **numc** from the drop-down list in the **Type** field and  
+     - enter **8** in the **Length** field   
+
+   - Proceed the same way for the properties **RequestDeliveryDate** and **Notes**.   
+
+   - In addition to the fields mentioned above we want to add a field **TotalPrice** that shall contain a _price_ which requires a _currency_.   
+   For fields of this type the behavior in the editor is slightly different:    
+     - Add a new property.   
+     - Fill **TotalPrice** for the name and select the type **curr**. This will add precision and scale fields where you enter **11** for precision and **2** for scale.  
+     - The property is missing the Currency field. This is why the field is now marked with a red box. 
+     - To create and add the missing currency field open the details dialog of the property by clicking on the right-pointing arrow next to the property. 
+     - Scroll down to **Currency** and enter here **Currency**. Press **Enter** and close the dialog with **OK**. 
+
+     <img src="images/02_060_add_total_price.gif" alt="currency" width="100%">
+
+You are now all set with the `Cart` entity which should look like follows. 
+
+<img src="images/02_070_cart_entity_final.png" alt="CartEntityFinal" width="100%">
+
+and it shall contain the following fields:   
+
+
+| **Property name**  | **Type**     |  **Length** or **(Precision/Scale)**  |   
+|--------------------|--------------|--------------| 
+| **OrderUuid**       |  **raw**     |     **16**  |       
+| OrderID             | numc         |     8       |       
+| RequestDeliveryDate | datn         |     -       |
+| Notes               | char         |    100      |
+| TotalPrice          | curr         |    (11/2)   |
+| Currency            | cuky         |     -       |
 
 ### Model the entity `Item`
 
-1. To add the entity `Item` click **AddEntity** and change the name to **Item**.
+1. In the next steps we will add the following properties to the **`Item`** entity. 
+In addition we will rename the pre-generated **ID** property to **ItemUuid**.
 
-2. Add a label for the **Item** entity by selecting the entity with a click, then on the appearing right-side menu of the entity select **Show Details**. In the now opened details pane add **ShoppingCartItem** as the label.
+> ⚠️ Please be sure to use the above mentioned name **ItemUuid** in CamelCase and do NOT use **ItemUUID** because this would lead to different field names on table level. This behavior will be changed in a future release.
 
-3. Rename the **ID** field to **ItemUUID**, leave type and lenght as given.
-
-4. Add the following properties:
-
-<!--
-ItemID: abap.numc(8)
-OrderedItem: abap.char(40)
-Quantity: abap.numc(4)
-ParentUUID: raw(16)
--->
-
- | **Property name**  | **Type**     |  **Length**  |   
- |--------------------|--------------|--------------|        
+ | **Property name**  | **Type**     |  **Length** or **(Precision/Scale)**  |    
+ |--------------------|--------------|--------------|
+ | **ItemUuid**       | **raw**      |     **16**   |       
+ | ParentUuid         | raw          |    16        |
  | ItemID             | numc         |     8        |
  | OrderedItem        | char         |    40        |
  | Quantity           | numc         |    4         |
- | ParentUUID         | raw          |    16        |
+
+
+2. To add the entity `Item` click **AddEntity** and change the name to **Item**.
+
+3. To add a label for the **Item** entity select the entity with a click. On the appearing right-side menu of the entity select **Show Details**. This will open the details pane where you can add **Item** as the label.
+
+4. Rename the **ID** field to **ItemUuid**, leave type and length as given.
+
+5. Add the remaining properties mentioned in the table above.
+
+   <img src="images/02_100_add_fields_to_item_entity.gif" alt="AddItemEntity" width="100%">
+ 
 
 > Some explanations:  
-> The field `ParentUUID` is needed to store the value of the UUID based key field of the Parent Node **Cart**. Starting from the third level of a grandchild entity one would have to add a second UUID based field called `RootUUID` to store the value of the UUID based key field of the root entity. 
+> The field `ParentUuid` is needed to store the value of the Uuid based key field of the Parent Node **Cart**. Starting from the third level of a grandchild entity one would have to add a second Uuid based field called `RootUuid` to store the value of the Uuid based key field of the root entity. 
 
-5. **ItemPrice**  
-  Add a new property. Fill **ItemPrice** for the name and select the type **curr**. This will add precision and scale fields where you enter **11** for precision and **2** for scale.  
-   The property is  missing the Currency field. To create and add this open the details dialog of the property by clicking on the right-pointing arrow **`>`**  next to the property. Scroll down to **Currency** and enter here **Currency**. Press enter and close the dialog with **OK**.   
+> We will finally add two fields of type price that contain the price of a single unit and the price of the item **ItemPrice** = **Quantity** * **UnitPrice**.   
 
-6. **ItemUnitPrice**   
-   Add a new property. Fill **ItemUnitPrice** for the name and select the type **curr**. This will add precision and scale fields where you enter **11** for precision and **2** for scale.   
-   The property is missing the Currency field. To fill this open the details dialog of the property by clicking on the right-pointing arrow **`>`** and select the field **Currency** from the drop down box.  
+6. **ItemPrice**  
+   - Add a new property. 
+   - Fill **ItemPrice** for the name and select the type **curr**. This will add precision and scale fields where you enter **11** for precision and **2** for scale.  
+   - The property is missing the Currency field. This is why the field is now marked with a red box. 
+   - To create and add the missing currency field open the details dialog of the property by clicking on the right-pointing arrow next to the property. 
+   - Scroll down to **Currency** and enter here **Currency**. Press **Enter** and close the dialog with **OK**.    
 
-   <img src="images/004_select_currency_for_item_unit_price.png" alt="currency" width="100%">   
+7. **ItemUnitPrice**   
+   - Add a new property. 
+   - Fill **ItemUnitPrice** for the name and select the type **curr**. This will add precision and scale fields where you enter **11** for precision and **2** for scale.   
+   - The property is missing the Currency field. This is why the field is now marked with a red box. 
+   - To fill this open the details dialog of the property by clicking on the right-pointing arrow **`>`** and select the previously created field **Currency** from the drop down box.  
+
+   <img src="images/02_110_add_price_fields_to_item.gif" alt="AddPriceFields" width="100%">   
+
+ The item entity shall now contain the following fields:     
+
+ | **Property name**  | **Type**     |  **Length** or **(Precision/Scale)**  |    
+ |--------------------|--------------|--------------|
+ | **ItemUuid**       | **raw**      |     **16**   |       
+ | ParentUuid         | raw          |    16        |
+ | ItemID             | numc         |     8        |
+ | OrderedItem        | char         |    40        |
+ | Quantity           | numc         |    4         |
+ | ItemPrice          | curr         |    (11/2)    |
+ | ItemUnitPrice      | curr         |    (11/2)    |
+ | Currency           | cuky         |     -        |
 
 ### Create a composition
 
@@ -123,60 +179,55 @@ Create a composition relationship between **Cart** and **Item**.
 1. Select the entity **Cart** and select **Add Relationship** from the menu on the item. 
    - Now drag the relationship arrow to the **Item** entity and click to release.    
    - In the relationship dialog select **Composition** and **To-Many** .   
-   - Now select in the Relationship Details for **Item** the field **ParentUUID** instead of the key field **ItemUUID**.     
+   - Now select in the Relationship Details for **Item** the field **ParentUuid** instead of the key field **ItemUuid**.     
 
-   <img src="images/g206_2.gif" alt="composition" width="100%">
+   <img src="images/02_200_add_composition.gif" alt="AddComposition" width="100%">
 
 2. Your result should look like this:
 
-   <img src="images/p203_2.png" alt="result" width="100%">
+   <img src="images/02_210_final_business_object.png" alt="result" width="100%">
 
 You can now close the Business Object Modeler and return to the storyboard.
 
 ## Exercise: Model the Shopping Cart Projection
 [^Top of page](#)
 
+Using the the Business Object Modeler we can now add a projection layer on top of our business object. We will select all fields that we have created in our business object layer. 
+
+<img src="images/02_320_create_projection_layer.gif" width="100%">
+
 1. In the storyboard click **+** under **Create a projection**.
-<img src="images/p204.png" alt="createProjection" width="100%">
 
 2. Click **Add Projection** in the Projection modeler. Drag the empty projection to the center of the screen and release.
 
-<img src="images/g207.gif" alt="emptyprojection" width="100%">
-
 3. Now select a base type for the projection. On the right hand side in the **Projection** pane, click the drop down and select **businessobject.Item**. Keep all properties selected and confirm to fill the projection.
 
-<img src="images/g208.gif" alt="fillprojection" width="100%">
+4. Add a second element to the projection with **Add Projection**. This will automatically assign **businessobject.Cart** as base type. Confirm the fields in the **Projection** pane.
 
-4. Create a second projection with **Add Projection**. This will automatically assign **businessobject.Cart** as base type. Confirm the fields in the **Projection** pane.
+5. The composition relationship was automatically created. Your result should now look like this:
 
-<img src="images/g209.gif" alt="fillprojection" width="100%">
-
-The composition relationship was automatically created. Your result should now look like this:
-
-<img src="images/p205.png" alt="resultProjection" width="100%">
+   <img src="images/02_320_final_projection.png" alt="resultProjection" width="100%">
 
 You can now close the Projection modeler and return to the storyboard.
 
 ## Exercise: Model the Shopping Cart Service
 [^Top of page](#)
 
-1. In the storyboard click **+** under **Create a service**.
+After having created the projection layer we have to add a service layer. Here we will select all entities that are going to be exposed by the service and we will mark the `Cart` entity as the leading entity.   
 
-<img src="images/p206.png" alt="servicestoryboard" width="100%">
+<img src="images/02_400_create_service_layer.gif" alt="servicestoryboard" width="100%">
 
-2. Create the service by clicking **Add Service** and dragging the empty service to the center of the modeler. Rename the service to **CartService**.
+1. In the storyboard click on the plus sign **`+`** under **Create a service**.
 
-<img src="images/g210.gif" alt="cartService" width="100%">
+2. Add a service by clicking **Add Service** and dragging the empty service to the center of the modeler.  
 
-3. Now add both projections to the service by selecting the service with a single click, and opening the details pane from the menu on the service. Select both entities to be part of the service and mark the `CartProjection` entity as the **Leading Entity**.  
+3. Rename the service to **CartService**.
 
-<img src="images/g211.gif" alt="cartServiceaddprojections" width="100%">
+4. Open the details pane and select both entities to be part of the service and mark the `CartProjection` entity as the **Leading Entity**.  
 
-Your resulting service should look like this:
-<!--
-<img src="images/p207.png" alt="resultservice" width="100%">
--->
-<img src="images/p207_2.png" alt="resultservice" width="100%">
+ℹ️ Your resulting model with business object, projection and service layer should look like this:
+
+<img src="images/02_410_final_model_with_service_layer.png" alt="resultservice" width="100%">
 
 You are now all set to generate the ABAP backend artefacts from the modeled business object, projection and service. Close the service modeler and return to the storyboard.
 
@@ -194,7 +245,8 @@ If you have not succeeded in modelling your RAP service we have provided the fol
 
   ![image](./images/002_shortcut_open_csn_editor.png)
 
-- In the new tab cut and paste the content of the following json -->
+- In the new tab cut and paste the content of the following json:
+  [csn file solution](../../csn_files/csn_with_labels.json)
 - Close the tab
 
 - The tab with the Graphical Editor should now look like in the screen shot below
@@ -208,38 +260,40 @@ If you have not succeeded in modelling your RAP service we have provided the fol
 
 1. To generate the ABAP backend artefacts click **Generate** on top of the storyboard.
 
-<img src="images/p208.png" alt="storyboardgeneration" width="100%">
+<img src="images/02_500_generate_rap_artefacts.png" alt="storyboardgeneration" width="100%">
 
-2. ⚠️⚠️⚠️ As the **Artifact prefix** you have to select your group ID:  
+2. ⚠️⚠️⚠️ As the **Artefact prefix** you have to select your group ID:  
 
- | **Event name**                          | **Artifact Prefix**                   |  
+ | **Event name**                          | **Artefact Prefix**                   |  
  |----------------------------------------|---------------------------------|       
  | **ASUG TechConnect in Louisville**       | **A##**                                |     
  | **SAP TechEd Berlin**                    | **B##**                                | 
+ | **TechEd On Tour - Bangalore 2025**                    | **C##**                                | 
+| **TechEd On Tour - Sydney 2025**                    | **D##**                                |
 
- 
+<img src="images/02_510_generate_rap_artefacts_select_prefix.png" alt="generationprefix" width="50%">
 
+3. Click **Next** to advance. Now the generation is being validated. The validation should show the message **The status is OK**.
 
-<img src="images/p209.png" alt="generationprefix" width="100%">
+<img src="images/02_520_generate_rap_artefacts_check_status_ok.png" alt="validation" width="50%">
 
-3. Click **Next** to advance. Now the generation is being validated. The validation status should be **OK** for you.
+4. Advance with **Next** to preview the to be generated artefacts and click **Finish** to start the generation.  
 
-<img src="images/p210.png" alt="validation" width="100%">
+<img src="images/02_530_generate_rap_artefacts_preview_artefacts.png" alt="preview" width="50%">
 
-4. Advance with **Next** to preview the to be generated artefacts and click **Finish** to start the generation. The generation might take a few minutes as the artefacts are being generated and activated and the service published. This enables us to add a Fiori UI from the storyboard in the following exercices.
+5. The generation might take a few minutes as the artefacts are being generated, activated and the service published.
 
-<img src="images/p211.png" alt="preview" width="100%">
+<img src="images/02_540_generate_rap_artefacts_generation.png" alt="preview" width="50%">
+
+<img src="images/02_550_generate_rap_artefacts_result.png" alt="preview" width="100%">
 
 ## Summary
 
-You have used the Graphical Modeller to model in Business Application Studio (BAS) and you have generated a (read-only) RAP service. This service will be CRUD-enabled in the following exercise by adding the missing behavior definition and behavior projection.   
+You have used the Graphical Modeller to model in Business Application Studio (BAS) and you have generated a (read-only) RAP service. This service will be CRUD-enabled in **[Exercise 3: Implement transactional behavior in ADT, create validations and determinations](../ex3/README.md)** by adding the missing behavior definition and behavior projection.  
+
 
 [^Top of page](#)
 
-  
-
-
-
-**[Exercise 3: Implement transactional behavior in ADT, create validations and determinations](../ex3/README.md)**.
+You can now continue with **[Exercise 3: Implement transactional behavior in ADT, create validations and determinations](../ex3/README.md)**.
 
 [^Top of page](#)

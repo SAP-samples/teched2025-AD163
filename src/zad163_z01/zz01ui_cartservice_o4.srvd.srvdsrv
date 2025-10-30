@@ -1,0 +1,7 @@
+@ObjectModel.leadingEntity: {
+  name: 'ZZ01C_CartProjection'
+}
+define service ZZ01UI_CartService_O4 provider contracts odata_v4_ui {
+  expose ZZ01C_CARTPROJECTION as CartProjection;
+  expose ZZ01C_ITEMPROJECTION as ItemProjection;
+}
