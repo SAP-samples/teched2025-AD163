@@ -17,12 +17,12 @@ _SAP Build Lobby_ is the starting point to manage your different Build project t
  
  So depending on the event you are participating your Group ID will look like follows:   
 
- | **Event name**                          | **Group ID** (location specific)                  |  
- |----------------------------------------|---------------------------------|            
-| **ASUG TechConnect in Louisville**       | **A##**                                |
-| **SAP TechEd Berlin**                    | **B##**                                | 
-| **TechEd On Tour - Bangalore 2025**      | **C##**                                | 
-| **TechEd On Tour - Sydney 2025**         | **D##**                                | 
+ | **Event name**                          | **Group ID** (location specific)                  |  System |
+ |----------------------------------------|---------------------------------|---------------------------------            
+| **ASUG TechConnect in Louisville**       | **A##**                                |    |
+| **SAP TechEd Berlin**                    | **B##**                                | https://374ca72c-d243-4496-982b-215f3ff23268.abap-web.eu10.hana.ondemand.com |
+| **TechEd On Tour - Bangalore 2025**      | **C##**                                |    |
+| **TechEd On Tour - Sydney 2025**         | **D##**                                |    |
 
 ## Exercise: Create an ABAP Project
 
@@ -31,9 +31,7 @@ _SAP Build Lobby_ is the starting point to manage your different Build project t
 1. In your browser, sign in to the Build lobby with the credentials of your exercise group.  
 
 > The URL and the username and the password will be provided to you by the course instructors.
-> The URL to the SAP Build Lobby is provided as a shortened URL in a format such as `https://url.sap/abc123`. 
-
-2. Add the shortened URL for the SAP Build Lobby into your browser.
+> The URL to the SAP Build Lobby is: https://ad163-wobbi9xc.eu10.build.cloud.sap/lobby
 
 3. When being prompted enter the credentials:
 
