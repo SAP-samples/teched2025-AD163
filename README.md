@@ -34,7 +34,7 @@ ABAP Cloud is the development model for building clean core compliant apps, serv
   
 * Access the presentation:
 
-  [Slides](../slides/AD163_Fusion%20Development%20with%20ABAP%20Cloud%20in%20SAP%20Build.pdf)
+  [Slides](https://github.com/SAP-samples/teched2025-AD163/blob/main/slides/AD163_Fusion%20Development%20with%20ABAP%20Cloud%20in%20SAP%20Build.pdf)
 
 ## Exercises
 [^Top of page](#)
