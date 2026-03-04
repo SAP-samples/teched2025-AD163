@@ -11,18 +11,18 @@ _SAP Build Lobby_ is the starting point to manage your different Build project t
 > Don't forget to replace all occurences of the placeholder **`###`** with your Group ID in the exercise steps below.   
 > The password will be provided by the course instructors. 
 
- Your Group ID starts with a location specific character **A** for ASUG, **B** for Teched, ...
+ Your Group ID starts with a location specific character **A** for ASUG, **B** for TechEd Berln, ...
  
  In addition you have to add the last two digits of the number at your desk **##**.
  
  So depending on the event you are participating your Group ID will look like follows:   
 
- | **Event name**                          | **Group ID** (location specific)                  |  
- |----------------------------------------|---------------------------------|            
-| **ASUG TechConnect in Louisville**       | **A##**                                |
-| **SAP TechEd Berlin**                    | **B##**                                | 
-| **TechEd On Tour - Bangalore 2025**                    | **C##**                                | 
-| **TechEd On Tour - Sydney 2025**                    | **D##**                                | 
+ | **Event name**                          | **Group ID** (location specific)                  |  System |
+ |----------------------------------------|---------------------------------|---------------------------------            
+| **ASUG TechConnect in Louisville**       | **A##**                                |    |
+| **SAP TechEd Berlin**                    | **B##**                                |    |
+| **TechEd On Tour - Bangalore 2025**      | **C##**                                |    |
+| **TechEd On Tour - Sydney 2025**         | **D##**                                |    |
 
 ## Exercise: Create an ABAP Project
 
@@ -31,7 +31,7 @@ _SAP Build Lobby_ is the starting point to manage your different Build project t
 1. In your browser, sign in to the Build lobby with the credentials of your exercise group.  
 
 > The URL and the username and the password will be provided to you by the course instructors.
-> The URL to the SAP Build Lobby is provided as a shortened URL in a format such as `https://url.sap/abc123`. 
+> The URL to the SAP Build Lobby is provided as a shortened URL in a format such as https://url.sap/abc123.
 
 2. Add the shortened URL for the SAP Build Lobby into your browser.
 
@@ -42,7 +42,7 @@ _SAP Build Lobby_ is the starting point to manage your different Build project t
 
    ⚠️⚠️⚠️ Be sure to replace the placeholder `###` with the correct group id. (`A##` for ASUG, `B##` for SAP Teched, ...) 
 
-     <img src="images/00_010_initial_authentication.png" alt="create dialog" width="25%">
+   <img src="images/00_010_initial_authentication.png" alt="create dialog" width="25%">
 
 4. In the SAP Build Lobby, click on **Create** right above the project list and select **Create** from the drop-down list. 
 
