@@ -22,11 +22,7 @@ In this exercise, you will create a shopping cart business model with two entiti
 ## Exercise: Sign in to SAP Build Code and open the SAP Build Code Storyboard
 [^Top of page](#)
 
-1. Click on the project created in the last exercise to start **SAP Build Code**. 
-
-   <img src="images/02_000_start_sap_build_code_from_project.png" alt="storyboard" width="100%">   
-
-2. This opens the SAP Build Code Storyboard with your project.   
+1. In the last exercise SAP Build Code opened the Storyboard of your newly created project.   
 Open the Business Objects modeller view by clicking the plus symbol **`+`** under **Create an entity** in the section **Business Objects**.
 
    <img src="images/02_010_Storyboard.png" alt="storyboard" width="100%">   

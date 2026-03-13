@@ -1,11 +1,12 @@
 [Home - AD163](/README.md#exercises)
 
-# Exercise 1: Start your development by creating an ABAP project in the SAP Build Lobby
+# Exercise 1: Start your development by creating an ABAP project in the SAP Business Application Studio
 
 ## Introduction
 
-In this exercise, you will setup your _ABAP development project_ in the _SAP Build Lobby_. The _ABAP development project_ links your ABAP development package and the modelling file - that both reside in the ABAP stack - with SAP Business Application Studio. Inside SAP Business Business Application Studio all development artefacts are stored inside the so called <img src="images/DevSpaceIcon.png" alt="create dialog" width="7%"> Dev Space.  
-_SAP Build Lobby_ is the starting point to manage your different Build project types, from ABAP to CAP.
+In this exercise, you will setup your _ABAP development project_ in _SAP Business Application Studio_. The _ABAP development project_ links your ABAP development package and the modelling file - that both reside in the ABAP stack - with SAP Business Application Studio. Inside SAP Business Business Application Studio all development artefacts are stored inside a so called <img src="images/DevSpaceIcon.png" alt="create dialog" width="7%"> Dev Space.  
+For ABAP projects there is a special Dev Space type <img src="images/abap.png" alt="abap_icon" width="7%"> **Full-Stack ABAP Application**
+
 
 > **Reminder:**   
 > Don't forget to replace all occurences of the placeholder **`###`** with your Group ID in the exercise steps below.   
@@ -23,17 +24,18 @@ _SAP Build Lobby_ is the starting point to manage your different Build project t
 | **SAP TechEd Berlin**                    | **B##**                                |    |
 | **TechEd On Tour - Bangalore 2025**      | **C##**                                |    |
 | **TechEd On Tour - Sydney 2025**         | **D##**                                |    |
+| **TechEd On Tour - TechXChange 2026**    | **G##**                                |    |
 
 ## Exercise: Create an ABAP Project
 
 [^Top of page](#)
 
-1. In your browser, sign in to the Build lobby with the credentials of your exercise group.  
+1. In your browser, sign in to SAP Business Application Studio with the credentials of your exercise group.
 
 > The URL and the username and the password will be provided to you by the course instructors.
 > The URL to the SAP Build Lobby is provided as a shortened URL in a format such as https://url.sap/abc123.
 
-2. Add the shortened URL for the SAP Build Lobby into your browser.
+2. Add the shortened URL for the DevSpace Manager of SAP Business Application Studio into your browser.
 
 3. When being prompted enter the credentials:
 
@@ -44,78 +46,49 @@ _SAP Build Lobby_ is the starting point to manage your different Build project t
 
    <img src="images/00_010_initial_authentication.png" alt="create dialog" width="25%">
 
-4. In the SAP Build Lobby, click on **Create** right above the project list and select **Create** from the drop-down list. 
+4. Click on **Create Dev Space** to create a new dev space of type **Full-Stack ABAP Application**. 
 
-   <img src="images/01_015_SAP_Build_Lobby.png" alt="create dialog" width="100%">  
+5. Enter a name for the dev space `ZAD163###` and choose **Full-Stack ABAP Application** and then press **Create Dev Space** 
 
-   This opens the Create Project dialog.     
-  
-5. In the **Create Project** dialog, select **Application** and click **Next**
+   <img src="images/800-00-create-dev-space.png" alt="create dialog" width="100%"> 
 
-   <img src="images/01_020_SAP_Build_Lobby_create_application.png" alt="create dialog" width="100%">   
+   This dev space includes essential extensions such as the CDS Graphical Modeler, SAP Fiori Tools, and Full-Stack ABAP tools.
 
-6. As **Category** select **Full-Stack** and advance with **Next**. 
+6. Wait until the status of the DevSpace switches from **Starting** to **Running**
+
+7. Click on the DevSpace `ZAD163###` 
+
+   <img src="images/800-10-create-dev-space.png" alt="create dialog" width="100%"> 
    
-   <img src="images/01_030_Create_project_category.png" alt="create project category" width="100%">   
-
-7. Finally select **Full-Stack ABAP (SAP Business Application Studio)** and advance with **Next**.
-
-   <img src="images/01_040_Create_project_type.png" alt="create dialog" width="100%">
-
-8. In the **System and Package** dialog, maintain the required information as follows:  
-
-   > ℹ️ ** Replace **`###`** with the Group ID of your exercise group.  
-   > For the screenshots in this exercise we used the suffix **`Z01`**. Please DO NOT use **`Z01`**.  
-   
-   As **System** select **H63** from the drop down box.   
-   For **Package** select **Existing** and enter **ZAD163_###**.    
-  
-   > Please note:  
-   > The package with your group ID `###` has been pre-created for your convenience.  
+8. Click on **New Project from Template**
  
-   Advance with **Next**.
+   <img src="images/800-20-select-template.png" alt="create dialog" width="100%">
+
+9. Select **Full Stack ABAP Cloud Project** and then press **Start**
+
+   <img src="images/800-40-select-template.png" alt="create dialog" width="100%">
    
-   <img src="images/01_050_select_system_and_package.png" alt="system and package" width="100%">
+10. In following screen follow the wizard and enter the following data and press **Next** 
+    - As **System** select **H63** from the drop down box.   
+    - For **Package Source** select **New**.
+    - For **Parent Package Name** enter **`ZLOCAL`**
+    - For **Package Name** enter **`ZAD163_###`**.
+    - For **Package Description** enter **`Package for ZAD163_###`**.
+    - Confirm New Package Creation by ticking the check box   
+  
+    <img src="images/800-50-create-package.png" width="100%">
 
-9. In the **Transport Request** dialogue create a new transport request.   
+11. Select  **`ZAD163_###`** as the project name of your Full Stack ABAP Cloud Project in SAP Business Application Studio and press **Finish**
 
-   <img src="images/01_060_create_new_transport.png" alt="system and package" width="100%">
+    ⚠️ Please note that the project name will also be choosen as the repository object name of the CSN file in the SAP BTP ABAP Environment system. It has hence has either to start with `Z`.
 
-10. In the **Name** dialog, maintain the following values:
-   - Name: **ZAD163_###**
-   - Description: **Project for ZAD163_###**
-   - CSN File Name: **ZAD163_###**
-   - Dev Space: **ZAD163###**
+    <img src="images/800-60-create-project.png" width="100%">
 
-   <img src="images/01_070_create_sap_build_project_and_dev_space.png" alt="project name" width="100%">
-
-   Advance to reviewing your information with **Review**.
 
    > The **CSN File** is a JSON file that is used by the graphical modeller (that we will use later to model our RAP business object).
    It is stored as a repository object of type **R3TR CSNM** in the ABAP stack and the name must therefore start with `Z` or with a customer or partner specific namespace `/<namespace>/`.  
    > In addition you have to select a name for a Dev Space that will be used by SAP Build Code. Since the Dev Space `ZAD163_###` does not exist yet, it will be created and started. The startup of the Dev Space will take some time as a new runtime environment will be instantiated in SAP Build.   
    > Please be aware that only up to two Dev Space may be active in parallel for each user and that only up to 10 Dev Spaces maybe created for each user.  
-
-11. Review your selections and inputs. Make sure you replaced **###** with your exercise Group ID. Finish the project setup with **Create**.
-
-12. In the project list you can now see the newly created project **ZAD163_###**. Be patient in as long in the **Versions** column you see the status **Pending Creation**. 
-
-
-    <img src="images/01_080_create_sap_build_project_pending_creation.png" alt="project name" width="100%">   
-
-   
-13. Once the **Versions** column is empty the project has been created and the SAP Build Code Dev Space has been started.   
-
-      <img src="images/01_090_project_created.png" alt="project name" width="100%">
-
-You can now click on the project name to open SAP Build.
-
-> Hint: **Dev Space Manager**  
-> When clicking on the bento menu (Japanese Burger Menu 😉) you can start several tools such as the **Dev Space Manager**:    
-> <img src="images/01_100_dev_space_manager.png" alt="project name" width="100%">    
-> Using the Dev Space Manager you can check the status of your Dev Space.     
-> <img src="images/01_110_dev_space_manager.png" alt="project name" width="100%">   
-
 
 ## Summary & Next Exercise
 [^Top of page](#)
