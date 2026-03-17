@@ -45,11 +45,13 @@ ABAP Cloud is the development model for building clean core compliant apps, serv
 
 | Exercises | -- |
 | ------------- |  -- |
+| [Getting Started: Check your ADT installation](exercises/ex0/README.md) | -- |
 | [Exercise 1: Create an ABAP project in the SAP Build Code](exercises/ex1/README.md) | -- |
 | [Exercise 2: Create a Shopping Cart business object, projection and service with the graphical modeler in BAS](exercises/ex2/README.md) | -- |
 | [Exercise 3: Implement transactional behavior in ADT, create validations and determinations](exercises/ex3/README.md) | -- |
 | [Exercise 4: Create, preview and adapt a SAP Fiori elements application](exercises/ex4/README.md) | -- |
-| [Exercise 5: Create and deploy an SAP Fiori app to the SAP BTP ABAP Environment with SAP Business Application Studio](exercises/ex5/README.md) | -- |
+<!--| [Exercise 5: Create and deploy an SAP Fiori app to the SAP BTP ABAP Environment with SAP Business Application Studio](exercises/ex5/README.md) | -- |
+-->
 
 ## Solution Package
 

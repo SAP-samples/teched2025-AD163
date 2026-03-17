@@ -167,7 +167,9 @@ You have learned:
 * How to preview an application with mock data.
 * How to perform UI adaptations that cannot be achieved by using backend annotations.
 * How to use building blocks and custom code to enrich your application further.
-
+<!-->
 **[Exercise 5: Create and deploy an SAP Fiori app to the SAP BTP ABAP Environment with SAP Business Application Studio](../ex5/README.md)**.
+
+-->
 
 [^Top of page](#)

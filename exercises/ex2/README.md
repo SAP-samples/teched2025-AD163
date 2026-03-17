@@ -266,6 +266,7 @@ If you have not succeeded in modelling your RAP service we have provided the fol
  | **SAP TechEd Berlin**                    | **B##**                                | 
  | **TechEd On Tour - Bangalore 2025**                    | **C##**                                | 
 | **TechEd On Tour - Sydney 2025**                    | **D##**                                |
+| **TechXChange - Hamburg 2026**                    | **G##**                                |
 
 <img src="images/02_510_generate_rap_artefacts_select_prefix.png" alt="generationprefix" width="50%">
 
